@@ -24,6 +24,7 @@ class MyDataset(Dataset):
         source_filename = item['source']
         target_filename = item['target']
         prompt = item['prompt']
+        print(item)
 
         source = cv2.imread('/home/yajvan/CV-final-project/ISIC2017/' + source_filename)
         print(source)
