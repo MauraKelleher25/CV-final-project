@@ -26,6 +26,7 @@ class MyDataset(Dataset):
         prompt = item['prompt']
 
         source = cv2.imread('~/ISIC2017' + source_filename)
+        print(source)
         target = cv2.imread('~/ISIC2017' + target_filename)
 
         # Do not forget that OpenCV read images in BGR order.
