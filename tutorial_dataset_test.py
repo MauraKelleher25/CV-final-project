@@ -2,6 +2,7 @@ from tutorial_dataset import MyDataset
 
 dataset = MyDataset()
 print(len(dataset))
+print(dataset)
 
 item = dataset[1234]
 jpg = item['jpg']
