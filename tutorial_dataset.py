@@ -7,10 +7,13 @@ from torch.utils.data import Dataset
 
 class MyDataset(Dataset):
     def __init__(self):
+        # self.data = []
+        # with open('./training/fill50k/prompt.json', 'rt') as f:
+        #     for line in f:
+        #         self.data.append(json.loads(line))
         self.data = []
-        with open('./training/fill50k/prompt.json', 'rt') as f:
-            for line in f:
-                self.data.append(json.loads(line))
+        with open('training_data.json', 'rt') as f:
+            self.data = json.load(f)
 
     def __len__(self):
         return len(self.data)
