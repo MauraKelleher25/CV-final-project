@@ -48,7 +48,7 @@ class MyDataset(Dataset):
         #if target.shape[2] != 3:
          #   target= cv2.cvtColor(target, cv2.COLOR_GRAY2RGB)
 
-        source= source[None, :, :]
+        source= source[:, :, None]
     
         # Convert BGR to RGB
         source = cv2.cvtColor(source, cv2.COLOR_BGR2RGB)
