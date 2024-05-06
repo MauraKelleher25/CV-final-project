@@ -41,7 +41,9 @@ class MyDataset(Dataset):
         #if num_channels != 3:
          #   print("statement entered")
           #  img = cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
-        source= cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
+
+        if source.mode=='L':
+            source= cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
     
         # Convert BGR to RGB
         source = cv2.cvtColor(source, cv2.COLOR_BGR2RGB)
