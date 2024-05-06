@@ -47,6 +47,7 @@ class MyDataset(Dataset):
 
         #if target.shape[2] != 3:
          #   target= cv2.cvtColor(target, cv2.COLOR_GRAY2RGB)
+        source.resize_(4, 3, 540, 576)
 
     
         # Convert BGR to RGB
