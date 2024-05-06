@@ -42,7 +42,7 @@ class MyDataset(Dataset):
          #   print("statement entered")
           #  img = cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
 
-        if source[2]==1:
+        if source.shape[2]==1:
             source= cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
     
         # Convert BGR to RGB
