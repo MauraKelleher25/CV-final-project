@@ -31,7 +31,6 @@ class MyDataset(Dataset):
 
         print(source.shape) 
         print(target.shape)
-        print(prompt.shape)
 
         # Resize images to the target size
         source = cv2.resize(source, self.target_size, interpolation=cv2.INTER_AREA)
@@ -43,11 +42,13 @@ class MyDataset(Dataset):
          #   print("statement entered")
           #  img = cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
 
-        if source.shape[2]!= 3:
-            source= cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
+      #  if source.shape[2]!= 3:
+       #     source= cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
 
-        if target.shape[2] != 3:
-            target= cv2.cvtColor(target, cv2.COLOR_GRAY2RGB)
+        #if target.shape[2] != 3:
+         #   target= cv2.cvtColor(target, cv2.COLOR_GRAY2RGB)
+
+        source= source[None, :, :]
     
         # Convert BGR to RGB
         source = cv2.cvtColor(source, cv2.COLOR_BGR2RGB)
