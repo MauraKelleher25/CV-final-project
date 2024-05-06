@@ -12,7 +12,7 @@ class MyDataset(Dataset):
         #     for line in f:
         #         self.data.append(json.loads(line))
         self.data = []
-        self.target_size = (576, 540)
+        self.target_size = (576, 512)
         with open('training_data.json', 'rt') as f:
             self.data = json.load(f)
 
