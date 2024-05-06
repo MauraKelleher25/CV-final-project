@@ -38,6 +38,7 @@ class MyDataset(Dataset):
 
         # Check and convert images to RGB if not already
         if source.shape[2] == 1:
+            print('statement entered')
             source = cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
     
         # Convert BGR to RGB
