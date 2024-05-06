@@ -26,8 +26,8 @@ class MyDataset(Dataset):
         target_filename = item['target']
         prompt = item['prompt']
 
-        source = cv2.imread('/home/yajvan/CV-final-project/ISIC2017/' + source_filename)
-        target = cv2.imread('/home/yajvan/CV-final-project/ISIC2017/' + target_filename)
+        source = cv2.imread('/home/yajvan/CV-final-project/CorrectedImages/' + source_filename)
+        target = cv2.imread('/home/yajvan/CV-final-project/CorrectedImages/' + target_filename)
 
         print(source.shape) 
         print(target.shape)
