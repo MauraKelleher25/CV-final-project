@@ -42,11 +42,11 @@ class MyDataset(Dataset):
          #   print("statement entered")
           #  img = cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
 
-        if source.shape[2]!= 3:
-            source= cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
+        #if source.shape[2]!= 3:
+         #   source= cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
 
-        if target.shape[2] != 3:
-            target= cv2.cvtColor(target, cv2.COLOR_GRAY2RGB)
+       # if target.shape[2] != 3:
+        #    target= cv2.cvtColor(target, cv2.COLOR_GRAY2RGB)
 
 
     
