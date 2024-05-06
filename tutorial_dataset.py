@@ -31,6 +31,7 @@ class MyDataset(Dataset):
 
         print(source.shape) 
         print(target.shape)
+        print(prompt.shape)
 
         # Resize images to the target size
         source = cv2.resize(source, self.target_size, interpolation=cv2.INTER_AREA)
