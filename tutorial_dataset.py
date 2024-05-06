@@ -12,6 +12,7 @@ class MyDataset(Dataset):
         #     for line in f:
         #         self.data.append(json.loads(line))
         self.data = []
+        self.target_size = (576, 540)
         with open('training_data.json', 'rt') as f:
             self.data = json.load(f)
 
@@ -24,11 +25,13 @@ class MyDataset(Dataset):
         source_filename = item['source']
         target_filename = item['target']
         prompt = item['prompt']
-        print(item)
 
         source = cv2.imread('/home/yajvan/CV-final-project/ISIC2017/' + source_filename)
-        print(source)
         target = cv2.imread('/home/yajvan/CV-final-project/ISIC2017/' + target_filename)
+
+        # Resize images to the target size
+        source = cv2.resize(source, self.target_size, interpolation=cv2.INTER_AREA)
+        target = cv2.resize(target, self.target_size, interpolation=cv2.INTER_AREA)
 
         # Do not forget that OpenCV read images in BGR order.
         source = cv2.cvtColor(source, cv2.COLOR_BGR2RGB)
