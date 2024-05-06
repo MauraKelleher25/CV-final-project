@@ -34,7 +34,7 @@ class MyDataset(Dataset):
         target = cv2.resize(target, self.target_size, interpolation=cv2.INTER_AREA)
 
         # Do not forget that OpenCV read images in BGR order.
-        source = cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
+        source = cv2.cvtColor(source, cv2.COLOR_BGR2RGB)
         target = cv2.cvtColor(target, cv2.COLOR_GRAY2RGB)
 
         # Normalize source images to [0, 1].
