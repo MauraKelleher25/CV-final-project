@@ -29,17 +29,16 @@ class MyDataset(Dataset):
         source = cv2.imread('/home/yajvan/CV-final-project/ISIC2017/' + source_filename)
         target = cv2.imread('/home/yajvan/CV-final-project/ISIC2017/' + target_filename)
 
+        print(source.shape) 
+        print(target.shape)
+
         # Resize images to the target size
         source = cv2.resize(source, self.target_size, interpolation=cv2.INTER_AREA)
         target = cv2.resize(target, self.target_size, interpolation=cv2.INTER_AREA)
 
-        
         # Check and convert images to RGB if not already
         if target.shape[2] == 1:
             target = cv2.cvtColor(target, cv2.COLOR_GRAY2RGB)
-    
-        print(source.shape) 
-        print(target.shape)
     
         # Convert BGR to RGB
         source = cv2.cvtColor(source, cv2.COLOR_BGR2RGB)
