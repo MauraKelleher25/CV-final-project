@@ -37,8 +37,8 @@ class MyDataset(Dataset):
         target = cv2.resize(target, self.target_size, interpolation=cv2.INTER_AREA)
 
         # Check and convert images to RGB if not already
-        if target.shape[2] == 1:
-            target = cv2.cvtColor(target, cv2.COLOR_GRAY2RGB)
+        if source.shape[2] == 1:
+            source = cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
     
         # Convert BGR to RGB
         source = cv2.cvtColor(source, cv2.COLOR_BGR2RGB)
