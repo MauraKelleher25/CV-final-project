@@ -37,10 +37,11 @@ class MyDataset(Dataset):
         target = cv2.resize(target, self.target_size, interpolation=cv2.INTER_AREA)
 
         # Check and convert images to RGB if not already
-        num_channels = source.shape[2] if len(source.shape) == 3 else 1
-        if num_channels != 3:
-            print("statement entered")
-            img = cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
+        #num_channels = source.shape[2] if len(source.shape) == 3 else 1
+        #if num_channels != 3:
+         #   print("statement entered")
+          #  img = cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
+        source= cv2.cvtColor(source, cv2.COLOR_GRAY2RGB)
     
         # Convert BGR to RGB
         source = cv2.cvtColor(source, cv2.COLOR_BGR2RGB)
