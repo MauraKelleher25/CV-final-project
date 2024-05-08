@@ -385,6 +385,10 @@ class DDPM(pl.LightningModule):
           false_positive = torch.sum((1 - target) * pred, dim=(1, 2, 3))
           false_negative = torch.sum(target * (1 - pred), dim=(1, 2, 3))
           
+          alpha = 0.45
+          beta = 0.55
+          smooth = 1e-5
+          
           tversky = (intersection + smooth) / (intersection + alpha * false_positive + beta * false_negative + smooth)
           loss = 1.0 - tversky
   
