@@ -49,7 +49,7 @@ class DDPM(pl.LightningModule):
                  unet_config,
                  timesteps=1000,
                  beta_schedule="linear",
-                 loss_type="l2",
+                 loss_type="tversky",
                  ckpt_path=None,
                  ignore_keys=[],
                  load_only_unet=False,
@@ -374,6 +374,29 @@ class DDPM(pl.LightningModule):
                 loss = torch.nn.functional.mse_loss(target, pred)
             else:
                 loss = torch.nn.functional.mse_loss(target, pred, reduction='none')
+        elif self.loss_type == 'tversky':
+          intersection = torch.sum(target * pred)
+          false_positive = torch.sum((1 - target) * pred)
+          false_negative = torch.sum(target * (1 - pred))
+          loss = 1.0 - (intersection + 1) / (intersection + alpha * false_positive + beta * false_negative + 1)  # Smoothing
+          if mean:
+              loss = loss.mean()
+        elif self.loss_type == 'unified_focal':
+          intersection = torch.sum(target * pred)
+          false_positive = torch.sum((1 - target) * pred)
+          false_negative = torch.sum(target * (1 - pred))
+          
+          dice = (2 * intersection + smooth) / (torch.sum(target) + torch.sum(pred) + smooth)
+          focal = -alpha * (1 - dice) ** gamma * torch.log(dice)
+          loss = focal
+          if mean:
+              loss = loss.mean()
+        elif self.loss_type == 'jaccard':
+          intersection = torch.sum(target * pred)
+          union = torch.sum(target) + torch.sum(pred) - intersection
+          loss = 1.0 - (intersection + 1) / (union + 1)  # Smoothing to avoid division by zero
+          if mean:
+              loss = loss.mean()
         else:
             raise NotImplementedError("unknown loss type '{loss_type}'")
 
