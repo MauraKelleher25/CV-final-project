@@ -378,6 +378,8 @@ class DDPM(pl.LightningModule):
           intersection = torch.sum(target * pred)
           false_positive = torch.sum((1 - target) * pred)
           false_negative = torch.sum(target * (1 - pred))
+          alpha = 0.45
+          beta = 0.55
           loss = 1.0 - (intersection + 1) / (intersection + alpha * false_positive + beta * false_negative + 1)  # Smoothing
           if mean:
               loss = loss.mean()
