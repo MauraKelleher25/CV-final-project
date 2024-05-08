@@ -374,15 +374,25 @@ class DDPM(pl.LightningModule):
                 loss = torch.nn.functional.mse_loss(target, pred)
             else:
                 loss = torch.nn.functional.mse_loss(target, pred, reduction='none')
+        elif self.loss_type == 'cross_entropy':
+          # Ensure target is in one-hot format for cross-entropy loss
+          target_one_hot = torch.nn.functional.one_hot(target, num_classes=pred.shape[-1])
+          loss = torch.nn.functional.cross_entropy(pred, target_one_hot)
+          if mean:
+              loss = loss.mean()
         elif self.loss_type == 'tversky':
           intersection = torch.sum(target * pred)
           false_positive = torch.sum((1 - target) * pred)
           false_negative = torch.sum(target * (1 - pred))
+          
           alpha = 0.45
           beta = 0.55
-          loss = 1.0 - (intersection + 1) / (intersection + alpha * false_positive + beta * false_negative + 1)  # Smoothing
+          smooth = 1e-5
+          
+          tversky = (intersection + smooth) / (intersection + alpha * false_positive + beta * false_negative + smooth)
+          loss = 1.0 - tversky
           if mean:
-              loss = loss.mean()
+              loss = loss.mean(dim=(1, 2, 3)) 
         elif self.loss_type == 'unified_focal':
           intersection = torch.sum(target * pred)
           false_positive = torch.sum((1 - target) * pred)
