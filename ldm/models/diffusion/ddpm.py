@@ -381,18 +381,15 @@ class DDPM(pl.LightningModule):
           if mean:
               loss = loss.mean()
         elif self.loss_type == 'tversky':
-          intersection = torch.sum(target * pred)
-          false_positive = torch.sum((1 - target) * pred)
-          false_negative = torch.sum(target * (1 - pred))
-          
-          alpha = 0.45
-          beta = 0.55
-          smooth = 1e-5
+          intersection = torch.sum(target * pred, dim=(1, 2, 3))
+          false_positive = torch.sum((1 - target) * pred, dim=(1, 2, 3))
+          false_negative = torch.sum(target * (1 - pred), dim=(1, 2, 3))
           
           tversky = (intersection + smooth) / (intersection + alpha * false_positive + beta * false_negative + smooth)
           loss = 1.0 - tversky
+  
           if mean:
-              loss = loss.mean(dim=(1, 2, 3)) 
+              loss = loss.mean()
         elif self.loss_type == 'unified_focal':
           intersection = torch.sum(target * pred)
           false_positive = torch.sum((1 - target) * pred)
